@@ -25,15 +25,13 @@ UI.prototype.addBookToList = function(book) {
     <td><a href="#" class="delete">X</a></td>
   `
   list.appendChild(row);
+}
 
-  // document.querySelector('.delete').addEventListener('click', function() {
-  //   this.parentNode.parentNode.remove();
-  // })
-  list.addEventListener("click", function(e) {
-    if(e.target && e.target.classList.contains('delete')) {
-      e.target.parentNode.parentNode.remove();
-    }
-  })
+// Delete Book
+UI.prototype.deleteBook = function (target){
+  if(target.className === 'delete') {
+    target.parentElement.parentElement.remove();
+  }
 }
 
 // Clear Fields
@@ -65,12 +63,13 @@ UI.prototype.showAlert = function(message, className) {
   
 }
 
+
 // ---------------------------------------------------------------------//
 
 
 // ---------------------------- EVENTS CONTROLLER -----------------------------------------//
 
-// 3 - Event Listeners
+// 3 - EVENT ADD BOOK
 document.querySelector('#book-form').addEventListener('submit', function(e) {
   
   // Get form values
@@ -100,6 +99,22 @@ document.querySelector('#book-form').addEventListener('submit', function(e) {
 
   e.preventDefault();
 })
+
+// EVENT TO REMOVE BOOK
+
+document.querySelector('#book-list').addEventListener('click', function(e) {
+  // Instantiate UI
+  const ui = new UI();
+  
+  // Delete book
+  ui.deleteBook(e.target);
+  
+  // Show message
+  ui.showAlert('Book Removed!', 'success');
+
+  e.preventDefault()
+})
+
 
 // ---------------------------------------------------------------------//
 
